@@ -17,6 +17,8 @@ const commonPlugins = () => [
     includeDependencies: true,
   }),
   babel({
+    babelrc: false,
+    presets: [['@babel/preset-env', { modules: false }], '@babel/preset-react'],
     exclude: 'node_modules/**',
   }),
 ];
