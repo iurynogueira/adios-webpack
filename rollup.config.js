@@ -40,13 +40,19 @@ export default [
     ],
     plugins: [
       resolve(),
-      commonjs(),
+      commonjs({
+        // ... other commonjs config options
+        namedExports: {
+           // https://github.com/rollup/rollup-plugin-commonjs#custom-named-exports
+           'node_modules/react/index.js': ['useState', 'useRef', 'useEffect'],
+         },
+       }),
       typescript({ tsconfig: './tsconfig.json' }),
     ],
   },
   {
     input: 'dist/esm/index.d.ts',
     output: [{ file: 'dist/index.d.ts', format: 'esm' }],
-    plugins: [dts(), ...commonPlugins()],
+    plugins: [...commonPlugins(), dts()],
   },
 ];
